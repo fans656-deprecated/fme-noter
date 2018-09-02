@@ -39,7 +39,9 @@ def post_note():
     note = request.json
     if not note:
         raise Error('note required')
-    Note.post(note)
+    note = Note.post(note)
+    if note:
+        return note.note
 
 
 @utils.require_me_login
@@ -52,7 +54,8 @@ def put_note(note_id):
         raise NotFound()
     data.pop('id', None)
     note.note.update(data)
-    note.save()
+    if note.save():
+        return note.note
 
 
 @utils.require_me_login
