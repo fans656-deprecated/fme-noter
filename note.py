@@ -9,7 +9,6 @@ def query_notes(query, page=None, size=None):
     if not size:
         size = 20
 
-    print query
     r = db.getdb().note.find(query, {'_id': False})
     total = r.count()
     r.sort('ctime', -1)
